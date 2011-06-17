@@ -12,3 +12,5 @@ grails {
 		api.groovy = "http://groovy.codehaus.org/gapi"
 	}
 }
+grails.views.default.codec="none" // none, html, base64
+grails.views.gsp.encoding="UTF-8"
