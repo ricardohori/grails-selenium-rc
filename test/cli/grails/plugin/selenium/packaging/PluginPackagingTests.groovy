@@ -46,7 +46,7 @@ class PluginPackagingTests extends AbstractCliTestCase {
 	}
 	
 	def getPluginVersion() {
-		"2.0rc2" // TODO: work this out rather than hardcoding
+		"2.0rc3" // TODO: work this out rather than hardcoding
 	}
 
 }
