@@ -16,6 +16,14 @@
 
 package grails.plugins.selenium
 
+import org.openqa.selenium.WebDriverBackedSelenium
+import org.openqa.selenium.WebDriverCommandProcessor
+import org.openqa.selenium.WebDriverException
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
 import com.thoughtworks.selenium.DefaultSelenium
 import com.thoughtworks.selenium.HttpCommandProcessor
 
@@ -25,24 +33,51 @@ class SeleniumRunner {
 		def host = seleniumConfig.selenium.server.host
 		def port = seleniumConfig.selenium.server.port
 		def browser = seleniumConfig.selenium.browser
+		def customBrowserPath = seleniumConfig.selenium.customBrowserPath
 		def url = seleniumConfig.selenium.url
 		def maximize = seleniumConfig.selenium.windowMaximize
-
-		def commandProcessor = new HttpCommandProcessor(host, port, browser, url)
-		def selenium = new DefaultSelenium(commandProcessor)
 		
+		def driver = configureDriver(browser, customBrowserPath)
+		
+		def commandProcessor  =	new WebDriverCommandProcessor(url, driver)
+		def selenium = new WebDriverBackedSelenium(driver, url)
 		SeleniumHolder.selenium = new SeleniumWrapper(selenium, commandProcessor, seleniumConfig)
-		SeleniumHolder.selenium.start()
 		if (maximize) {
 			SeleniumHolder.selenium.windowMaximize()
 		}
-
 		return SeleniumHolder.selenium
+	}
+	
+	def private configureDriver(browser,path){
+		DesiredCapabilities capabilities
+		
+		switch(browser){
+			case "firefox":
+				capabilities = DesiredCapabilities.firefox()
+				if(path) capabilities.setCapability("firefox.binary", path)
+				return new FirefoxDriver(capabilities)
+			case "chrome":
+				capabilities = DesiredCapabilities.chrome()
+				if(path) capabilities.setCapability("chrome.binary", path)
+				return new ChromeDriver(capabilities)
+			case "iexplorer":
+				capabilities = DesiredCapabilities.internetExplorer()
+				if(path) capabilities.setCapability("internetExplorer.binary", path)
+				return new InternetExplorerDriver(capabilities)
+				break
+			default:
+				throw new WebDriverException("Browser not yet supported")
+		}
 	}
 
 	void stopSelenium() {
-		SeleniumHolder.selenium?.stop()
-		SeleniumHolder.selenium = null
+		try {
+			SeleniumHolder.selenium?.getWrappedDriver()?.quit()
+		} catch (Exception e) {
+			SeleniumHolder.selenium?.stop()
+		} finally {
+			SeleniumHolder.selenium = null
+		}
 	}
-
 }
+

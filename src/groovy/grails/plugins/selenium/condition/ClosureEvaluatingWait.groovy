@@ -16,15 +16,36 @@
 
 package grails.plugins.selenium.condition
 
+import grails.plugins.selenium.SeleniumHolder
+
+import org.openqa.selenium.By
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement
+import org.openqa.selenium.support.ui.ExpectedCondition
+import org.openqa.selenium.support.ui.WebDriverWait
+
 import com.thoughtworks.selenium.Wait
 
 class ClosureEvaluatingWait extends Wait {
 
 	static void waitFor(String timeoutMessage, Closure condition) {
-		def wait = new ClosureEvaluatingWait()
+		def driver = SeleniumHolder.selenium.selenium.wrappedDriver
+		Wait<WebDriver> wait = new WebDriverWait(driver, 30);
 		wait.condition = condition
 		wait.wait(timeoutMessage)
 	}
+	
+	public ExpectedCondition<WebElement> visibilityOfElementLocated(final By locator) {
+		return new ExpectedCondition<WebElement>() {
+		  public WebElement apply(WebDriver driver) {
+			WebElement toReturn = driver.findElement(locator);
+			if (toReturn.isDisplayed()) {
+			  return toReturn;
+			}
+			return null;
+		  }
+		};
+	  }
 
 	Closure condition
 

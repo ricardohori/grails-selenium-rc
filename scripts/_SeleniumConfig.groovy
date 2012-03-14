@@ -32,6 +32,7 @@ selenium {
 		port = 4444
 	}
 	browser = "${getDefaultBrowser()}"
+	//customBrowserPath /* (Optional) Allows custom path for the browser of choice */
 	defaultTimeout = 60000
 	slow = false
 	singleWindow = true
@@ -83,11 +84,11 @@ private URL getSeleniumConfigClass() {
 private getDefaultBrowser() {
 	switch (System.properties."os.name") {
 		case ~/^Mac OS.*/:
-			return "*safari"
+			return "safari"
 		case ~/^Windows.*/:
-			return "*iexplore"
+			return "iexplore"
 		default:
-			return "*firefox"
+			return "firefox"
 	}
 }
 

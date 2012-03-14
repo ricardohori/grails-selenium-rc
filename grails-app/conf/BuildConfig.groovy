@@ -26,10 +26,7 @@ grails.project.dependency.resolution = {
 		mavenCentral()
 	}
 	dependencies {
-        test('org.seleniumhq.selenium:selenium:2.0rc2') {
-            excludes "xercesImpl", "xmlParserAPIs", "xml-apis", "gmaven-runtime-default", "junit";
-        }
-        test('org.seleniumhq.selenium:selenium-server:2.0rc3') {
+        test('org.seleniumhq.selenium:selenium-server:2.19.0') {
             excludes "xercesImpl", "xmlParserAPIs", "xml-apis", "gmaven-runtime-default", "junit";
         }
 		test("org.gmock:gmock:0.8.0") {
