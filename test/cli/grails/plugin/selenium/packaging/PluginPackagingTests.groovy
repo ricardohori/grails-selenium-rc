@@ -27,7 +27,7 @@ class PluginPackagingTests extends AbstractCliTestCase {
 		assertEquals 0, waitForProcess()
 		verifyHeader()
 
-		def packagedPlugin = new File("grails-selenium-rc-${pluginVersion}.zip") 
+		def packagedPlugin = new File("grails-selenium-rc-${pluginVersion}.zip")
 		assertTrue packagedPlugin.isFile()
 
 		def zipFile = new ZipFile(packagedPlugin)
@@ -44,9 +44,9 @@ class PluginPackagingTests extends AbstractCliTestCase {
 			zipFile.close()
 		}
 	}
-	
+
 	def getPluginVersion() {
-		"2.0rc3" // TODO: work this out rather than hardcoding
+		"2.0.19" // TODO: work this out rather than hardcoding
 	}
 
 }

@@ -53,12 +53,12 @@ class WaitForDynamicMethod extends AbstractDynamicMethodInvocation {
 			throw new MissingMethodException(methodName, target.getClass(), arguments)
 		}
 
-		def waitCondition = new ClosureEvaluatingWait()
-		waitCondition.condition = {
+		def driver = target.selenium.getWrappedDriver()
+		def condition = {
 			def actual = target."$seleniumCommand"(* argsList)
 			matcher.matches(actual)
 		}
-		waitCondition.wait(getMessage(seleniumCommand, argsList, matcher), target.timeout.toLong())
+		ClosureEvaluatingWait.waitFor(driver, target.timeout.toLong(), getMessage(seleniumCommand, argsList, matcher), condition)
 		return true
 	}
 

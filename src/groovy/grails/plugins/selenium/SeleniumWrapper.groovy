@@ -24,6 +24,8 @@ import org.apache.commons.lang.StringUtils
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.commons.metaclass.DynamicMethodInvocation
+import org.openqa.selenium.internal.WrapsDriver
+
 import grails.plugins.selenium.condition.ClosureEvaluatingWait
 
 /**
@@ -106,10 +108,12 @@ class SeleniumWrapper {
 		selenium.stop()
 	}
 
+	void waitFor(Closure condition) {
+		waitFor("Closure was not satisfied during the accepted timeout", condition)
+	}
+
 	void waitFor(String timeoutMessage, Closure condition) {
-		def wait = new ClosureEvaluatingWait()
-		wait.condition = condition
-		wait.wait(timeoutMessage, getTimeout().toLong())
+		ClosureEvaluatingWait.waitFor(((WrapsDriver)selenium).getWrappedDriver(), getTimeout().toLong(), timeoutMessage, condition)
 	}
 
 	def methodMissing(String methodName, args) {

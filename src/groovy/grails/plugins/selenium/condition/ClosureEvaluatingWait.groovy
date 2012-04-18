@@ -16,19 +16,21 @@
 
 package grails.plugins.selenium.condition
 
-import com.thoughtworks.selenium.Wait
+import org.openqa.selenium.support.ui.WebDriverWait
 
-class ClosureEvaluatingWait extends Wait {
+import com.google.common.base.Predicate
 
-	static void waitFor(String timeoutMessage, Closure condition) {
-		def wait = new ClosureEvaluatingWait()
-		wait.condition = condition
-		wait.wait(timeoutMessage)
-	}
-
-	Closure condition
-
-	boolean until() {
-		condition()
+class ClosureEvaluatingWait {
+	static void waitFor(driver, timeout, String timeoutMessage, Closure condition) {
+		WebDriverWait wait = new WebDriverWait(driver, timeout)
+		Predicate predicate = new Predicate(){
+			boolean apply(obj){
+				condition()
+			}
+			boolean equals(obj){
+				return this == obj
+			}
+		}
+		wait.until(predicate)
 	}
 }
