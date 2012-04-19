@@ -19,13 +19,11 @@ package grails.plugins.selenium
 import org.openqa.selenium.WebDriverBackedSelenium
 import org.openqa.selenium.WebDriverCommandProcessor
 import org.openqa.selenium.WebDriverException
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.ie.InternetExplorerDriver
+import org.openqa.selenium.remote.DesiredCapabilities
 
-import com.thoughtworks.selenium.DefaultSelenium
-import com.thoughtworks.selenium.HttpCommandProcessor
 
 class SeleniumRunner {
 
@@ -36,21 +34,18 @@ class SeleniumRunner {
 		def customBrowserPath = seleniumConfig.selenium.customBrowserPath
 		def url = seleniumConfig.selenium.url
 		def maximize = seleniumConfig.selenium.windowMaximize
-		
+		def defaultTimeout = seleniumConfig.selenium.defaultTimeout
+
 		def driver = configureDriver(browser, customBrowserPath)
-		
-		def commandProcessor  =	new WebDriverCommandProcessor(url, driver)
-		def selenium = new WebDriverBackedSelenium(driver, url)
-		SeleniumHolder.selenium = new SeleniumWrapper(selenium, commandProcessor, seleniumConfig)
+		SeleniumHolder.selenium = new SeleniumWrapper(new WebDriverBackedSelenium(driver, url), new WebDriverCommandProcessor(url, driver), defaultTimeout)
 		if (maximize) {
 			SeleniumHolder.selenium.windowMaximize()
 		}
 		return SeleniumHolder.selenium
 	}
-	
+
 	def private configureDriver(browser,path){
 		DesiredCapabilities capabilities
-		
 		switch(browser){
 			case "firefox":
 				capabilities = DesiredCapabilities.firefox()

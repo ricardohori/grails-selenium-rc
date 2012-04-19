@@ -36,27 +36,23 @@ class SeleniumWrapper {
 	@Delegate private final Selenium selenium
 
 	private final CommandProcessor commandProcessor
-	private final ConfigObject config
+	private final String defaultTimeout
 
 	private boolean alive = false
 	private String timeout
 
 	private static final DYNAMIC_METHODS = [new AndWaitDynamicMethod(), new WaitForDynamicMethod()]
 
-	SeleniumWrapper(Selenium selenium, CommandProcessor commandProcessor, ConfigObject config) {
+	SeleniumWrapper(Selenium selenium, CommandProcessor commandProcessor, String defaultTimeout) {
 		this.selenium = selenium
 		this.commandProcessor = commandProcessor
-		this.config = config
+		this.defaultTimeout = defaultTimeout
 	}
 
 	void open(String uri) {
 		// Selenium's default open command sends a HEAD and a GET unless "true" is specified but there is no override on
 		// the Java client
 		commandProcessor.doCommand("open", [uri, "true"] as String[])
-	}
-
-	String getDefaultTimeout() {
-		config.selenium.defaultTimeout
 	}
 
 	String getTimeout() {
