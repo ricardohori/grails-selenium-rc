@@ -21,8 +21,8 @@ import org.openqa.selenium.support.ui.WebDriverWait
 import com.google.common.base.Predicate
 
 class ClosureEvaluatingWait {
-	static void waitFor(driver, timeout, String timeoutMessage, Closure condition) {
-		WebDriverWait wait = new WebDriverWait(driver, timeout)
+	static void waitFor(driver, timeoutInMillis, String timeoutMessage, Closure condition) {
+		WebDriverWait wait = new WebDriverWait(driver, (timeoutInMillis/1000).longValue())
 		Predicate predicate = new Predicate(){
 			boolean apply(obj){
 				condition()
