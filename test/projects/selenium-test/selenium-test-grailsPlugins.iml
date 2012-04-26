@@ -4,7 +4,7 @@
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
-          <root url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/bean-fields-1.0-SNAPSHOT/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/bean-fields-1.0-SNAPSHOT/web-app" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -12,24 +12,24 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/acegi-0.5.3">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/src/java" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/grails-app/controllers" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/grails-app/services" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/grails-app/taglib" isTestSource="false" />
+    <content url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/acegi-0.5.3">
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/grails-app/taglib" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/bean-fields-1.0-SNAPSHOT">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/bean-fields-1.0-SNAPSHOT/grails-app/taglib" isTestSource="false" />
+    <content url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/bean-fields-1.0-SNAPSHOT">
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/bean-fields-1.0-SNAPSHOT/grails-app/taglib" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0/src/java" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0/grails-app/controllers" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0/grails-app/services" isTestSource="false" />
+    <content url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0">
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/build-test-data-1.1.0/grails-app/services" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/tomcat-1.2.2">
-      <sourceFolder url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/tomcat-1.2.2/src/groovy" isTestSource="false" />
+    <content url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/tomcat-1.2.2">
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/tomcat-1.2.2/src/groovy" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -37,13 +37,13 @@
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library">
         <CLASSES>
-          <root url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/lib" />
-          <root url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/tomcat-1.2.2/lib" />
+          <root url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/lib" />
+          <root url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/tomcat-1.2.2/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/lib" recursive="false" />
-        <jarDirectory url="file://$USER_HOME_GRAILS$/1.2.2/projects/selenium-test/plugins/tomcat-1.2.2/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/acegi-0.5.3/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/.grails/1.2.2/projects/selenium-test/plugins/tomcat-1.2.2/lib" recursive="false" />
       </library>
     </orderEntry>
   </component>

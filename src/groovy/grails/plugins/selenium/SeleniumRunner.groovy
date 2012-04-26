@@ -37,7 +37,7 @@ class SeleniumRunner {
 		def defaultTimeout = seleniumConfig.selenium.defaultTimeout
 
 		def driver = configureDriver(browser, customBrowserPath)
-		SeleniumHolder.selenium = new SeleniumWrapper(new WebDriverBackedSelenium(driver, url), new WebDriverCommandProcessor(url, driver), defaultTimeout)
+		SeleniumHolder.selenium = new SeleniumWrapper(new WebDriverBackedSelenium(driver, url), new WebDriverCommandProcessor(url, driver), defaultTimeout as String)
 		if (maximize) {
 			SeleniumHolder.selenium.windowMaximize()
 		}

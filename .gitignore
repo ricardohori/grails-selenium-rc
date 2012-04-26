@@ -14,3 +14,6 @@ classes/
 web-app/
 .gradle/
 plugin.xml
+/Selenium-rc.iml
+/grails-selenium-rc.iml
+/grails-selenium-rc.ipr
