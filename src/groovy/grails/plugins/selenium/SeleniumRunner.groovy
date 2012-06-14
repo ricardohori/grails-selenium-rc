@@ -62,8 +62,14 @@ class SeleniumRunner {
 				if(path) capabilities.setCapability("internetExplorer.binary", path)
 				return new InternetExplorerDriver(capabilities)
             case "html-unit":
-                if(jsBrowser) return new HtmlUnitDriver(jsBrowser)
-                return new HtmlUnitDriver(true)
+                def driver
+                if(jsBrowser){
+                    driver = new HtmlUnitDriver(jsBrowser)
+                }else{
+                    driver = new HtmlUnitDriver(true)
+                }
+                driver.javascriptEnabled = true
+                return driver
 			default:
 				throw new WebDriverException("Browser not yet supported")
 		}
