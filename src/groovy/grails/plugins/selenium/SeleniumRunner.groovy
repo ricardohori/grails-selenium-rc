@@ -23,6 +23,7 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.ie.InternetExplorerDriver
 import org.openqa.selenium.remote.DesiredCapabilities
+import org.openqa.selenium.htmlunit.HtmlUnitDriver
 
 
 class SeleniumRunner {
@@ -32,11 +33,12 @@ class SeleniumRunner {
 		def port = seleniumConfig.selenium.server.port
 		def browser = seleniumConfig.selenium.browser
 		def customBrowserPath = seleniumConfig.selenium.customBrowserPath
+        def jsBrowser = seleniumConfig.selenium.jsBrowser
 		def url = seleniumConfig.selenium.url
 		def maximize = seleniumConfig.selenium.windowMaximize
 		def defaultTimeout = seleniumConfig.selenium.defaultTimeout
 
-		def driver = configureDriver(browser, customBrowserPath)
+		def driver = configureDriver(browser, customBrowserPath, jsBrowser)
 		SeleniumHolder.selenium = new SeleniumWrapper(new WebDriverBackedSelenium(driver, url), new WebDriverCommandProcessor(url, driver), defaultTimeout as String)
 		if (maximize) {
 			SeleniumHolder.selenium.windowMaximize()
@@ -44,7 +46,7 @@ class SeleniumRunner {
 		return SeleniumHolder.selenium
 	}
 
-	def private configureDriver(browser,path){
+	def private configureDriver(browser,path,jsBrowser){
 		DesiredCapabilities capabilities
 		switch(browser){
 			case "firefox":
@@ -59,7 +61,9 @@ class SeleniumRunner {
 				capabilities = DesiredCapabilities.internetExplorer()
 				if(path) capabilities.setCapability("internetExplorer.binary", path)
 				return new InternetExplorerDriver(capabilities)
-				break
+            case "html-unit":
+                if(jsBrowser) return new HtmlUnitDriver(jsBrowser)
+                return new HtmlUnitDriver(true)
 			default:
 				throw new WebDriverException("Browser not yet supported")
 		}

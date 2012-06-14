@@ -16,7 +16,7 @@
 
 class SeleniumRcGrailsPlugin {
 
-	def version = "2.0.21"
+	def version = "2.0.23"
 	def grailsVersion = "1.2.0 > *"
 	def dependsOn = [:]
 	def pluginExcludes = [
