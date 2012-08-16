@@ -24,43 +24,53 @@ import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.ie.InternetExplorerDriver
 import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
+import org.openqa.selenium.firefox.FirefoxProfile
+import org.openqa.selenium.firefox.FirefoxBinary
 
 
 class SeleniumRunner {
 
-	SeleniumWrapper startSelenium(ConfigObject seleniumConfig) {
-		def host = seleniumConfig.selenium.server.host
-		def port = seleniumConfig.selenium.server.port
-		def browser = seleniumConfig.selenium.browser
-		def customBrowserPath = seleniumConfig.selenium.customBrowserPath
+    SeleniumWrapper startSelenium(ConfigObject seleniumConfig) {
+        def host = seleniumConfig.selenium.server.host
+        def port = seleniumConfig.selenium.server.port
+        def browser = seleniumConfig.selenium.browser
+        def customBrowserPath = seleniumConfig.selenium.customBrowserPath
         def jsBrowser = seleniumConfig.selenium.jsBrowser
-		def url = seleniumConfig.selenium.url
-		def maximize = seleniumConfig.selenium.windowMaximize
-		def defaultTimeout = seleniumConfig.selenium.defaultTimeout
+        def url = seleniumConfig.selenium.url
+        def maximize = seleniumConfig.selenium.windowMaximize
+        def defaultTimeout = seleniumConfig.selenium.defaultTimeout
+        def extensions = seleniumConfig.selenium.extensions
 
-		def driver = configureDriver(browser, customBrowserPath, jsBrowser)
-		SeleniumHolder.selenium = new SeleniumWrapper(new WebDriverBackedSelenium(driver, url), new WebDriverCommandProcessor(url, driver), defaultTimeout as String)
-		if (maximize) {
-			SeleniumHolder.selenium.windowMaximize()
-		}
-		return SeleniumHolder.selenium
-	}
+        def driver = configureDriver(browser, customBrowserPath, jsBrowser, extensions)
+        SeleniumHolder.selenium = new SeleniumWrapper(new WebDriverBackedSelenium(driver, url), new WebDriverCommandProcessor(url, driver), defaultTimeout as String)
+        if (maximize) {
+            SeleniumHolder.selenium.windowMaximize()
+        }
+        return SeleniumHolder.selenium
+    }
 
-	def private configureDriver(browser,path,jsBrowser){
-		DesiredCapabilities capabilities
-		switch(browser){
-			case "firefox":
-				capabilities = DesiredCapabilities.firefox()
-				if(path) capabilities.setCapability("firefox.binary", path)
-				return new FirefoxDriver(capabilities)
-			case "chrome":
-				capabilities = DesiredCapabilities.chrome()
-				if(path) capabilities.setCapability("chrome.binary", path)
-				return new ChromeDriver(capabilities)
-			case "iexplorer":
-				capabilities = DesiredCapabilities.internetExplorer()
-				if(path) capabilities.setCapability("internetExplorer.binary", path)
-				return new InternetExplorerDriver(capabilities)
+    def private configureDriver(browser,path,jsBrowser, extensions=[]){
+        DesiredCapabilities capabilities
+        switch(browser){
+            case "firefox":
+                def profile = new FirefoxProfile()
+                if(extensions){
+                    extensions.each{extension->
+                        profile.addExtension(new File(extension))
+                    }
+                }
+                if(path) {
+                    return new FirefoxDriver(new FirefoxBinary(new File(path)), profile)
+                }
+                return new FirefoxDriver(profile)
+            case "chrome":
+                capabilities = DesiredCapabilities.chrome()
+                if(path) capabilities.setCapability("chrome.binary", path)
+                return new ChromeDriver(capabilities)
+            case "iexplorer":
+                capabilities = DesiredCapabilities.internetExplorer()
+                if(path) capabilities.setCapability("internetExplorer.binary", path)
+                return new InternetExplorerDriver(capabilities)
             case "html-unit":
                 def driver
                 if(jsBrowser){
@@ -70,19 +80,19 @@ class SeleniumRunner {
                 }
                 driver.javascriptEnabled = true
                 return driver
-			default:
-				throw new WebDriverException("Browser not yet supported")
-		}
-	}
+            default:
+                throw new WebDriverException("Browser not yet supported")
+        }
+    }
 
-	void stopSelenium() {
-		try {
-			SeleniumHolder.selenium?.getWrappedDriver()?.quit()
-		} catch (Exception e) {
-			SeleniumHolder.selenium?.stop()
-		} finally {
-			SeleniumHolder.selenium = null
-		}
-	}
+    void stopSelenium() {
+        try {
+            SeleniumHolder.selenium?.getWrappedDriver()?.quit()
+        } catch (Exception e) {
+            SeleniumHolder.selenium?.stop()
+        } finally {
+            SeleniumHolder.selenium = null
+        }
+    }
 }
 
