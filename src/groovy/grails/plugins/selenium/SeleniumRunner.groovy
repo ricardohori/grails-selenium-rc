@@ -26,6 +26,8 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import org.openqa.selenium.firefox.FirefoxProfile
 import org.openqa.selenium.firefox.FirefoxBinary
+import com.thoughtworks.selenium.DefaultSelenium
+import com.thoughtworks.selenium.HttpCommandProcessor
 
 
 class SeleniumRunner {
@@ -40,12 +42,21 @@ class SeleniumRunner {
         def maximize = seleniumConfig.selenium.windowMaximize
         def defaultTimeout = seleniumConfig.selenium.defaultTimeout
         def extensions = seleniumConfig.selenium.extensions
+        def webdriver = seleniumConfig.selenium.webdriver
 
-        def driver = configureDriver(browser, customBrowserPath, jsBrowser, extensions)
-        SeleniumHolder.selenium = new SeleniumWrapper(new WebDriverBackedSelenium(driver, url), new WebDriverCommandProcessor(url, driver), defaultTimeout as String)
+        def commandProcessor = new HttpCommandProcessor(host, port, browser, url)
+
+        if(webdriver){
+            def driver = configureDriver(browser, customBrowserPath, jsBrowser, extensions)
+            SeleniumHolder.selenium = new SeleniumWrapper(new WebDriverBackedSelenium(driver, url), new WebDriverCommandProcessor(url, driver), defaultTimeout as String)
+        }else{
+            SeleniumHolder.selenium = new SeleniumWrapper(new DefaultSelenium(commandProcessor), commandProcessor, defaultTimeout as String)
+            SeleniumHolder.selenium.start()
+        }
         if (maximize) {
             SeleniumHolder.selenium.windowMaximize()
         }
+        SeleniumHolder.isWebDriver = webdriver
         return SeleniumHolder.selenium
     }
 

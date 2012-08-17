@@ -18,8 +18,10 @@ package grails.plugins.selenium
 
 class SeleniumHolder {
 
-	static SeleniumWrapper selenium
+    static isWebDriver
 
-	private SeleniumHolder() { }
+    static SeleniumWrapper selenium
+
+    private SeleniumHolder() { }
 
 }
